@@ -38,6 +38,13 @@ Create a new deck.
 | shuffled | boolean | yes | Can be set as `true/false`. If `true`, the cards from the deck will be shuffled.
 | cards | csv | yes | CSV of card codes (e.g. `AS,KD,AC,2C,KH`). If provided, deck will be created with only specified cards otherwise deck will be created with all cards.
 
+### `GET /api/v1/decks/:id`
+Open a deck using deck uuid.
+#### Params
+| Param Name | Type | Optional | Description
+| --- | --- | --- | --- |
+| id | uuid (string) | no | The uuid of deck to be opened.
+
 ### `POST /api/v1/decks/:id/draw`
 Draw card(s) from a specific deck.
 #### Params

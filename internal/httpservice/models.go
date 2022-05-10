@@ -11,3 +11,8 @@ type DeckResponse struct {
 	Shuffled  bool   `json:"shuffled"`
 	Remaining int    `json:"remaining"`
 }
+
+type DeckWithCardsResponse struct {
+	DeckResponse
+	Cards []CardResponse `json:"cards"`
+}
