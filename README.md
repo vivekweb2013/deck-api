@@ -22,3 +22,18 @@ go build
 ```
 
 This will start the http server.
+
+## How to run tests
+- Run the following command from the root directory
+```shell
+go test -v -cover ./...
+```
+
+## API Endpoints
+### `POST /api/v1/decks`
+Create a new deck.
+#### Params
+| Name | Type | Optional | Description
+| --- | --- | --- | --- |
+| shuffled | boolean | yes | Can be set as `true/false`. If `true`, the cards from the deck will be shuffled.
+| cards | csv | yes | CSV of card codes (e.g. `AS,KD,AC,2C,KH`). If provided, deck will be created with only specified cards otherwise deck will be created with all cards.
