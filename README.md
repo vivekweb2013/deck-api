@@ -2,32 +2,35 @@
 This is a simple golang application that exposes deck APIs useful for playing card games.
 
 ## How to run
-- Install go version `1.18.1` or above.
+- Install go version `1.18.1` or above
 - Clone this repository
-- Prepare config file using below command
+- Prepare config file
+
+The application reads the configurations from `.app.yaml` file or the environment variables. The `app.yaml` is a sample config that can be used to create the actual config file. Execute the following command to create a app config file.
 ```shell
 cp app.yaml .app.yaml
 ```
-You can edit the config values inside `.app.yaml` file. The application uses this file for retrieving configuration values.
+You can edit the config values inside `.app.yaml` file.
 
 - Start the server directly using below command
 ```shell
 go run main.go
 ```
 
-Or, If you want to build & run executable then below run commands
+Or, If you want to build & run executable then below run commands.
 ```shell
 go build
 ./deck-api
 ```
 
-This will start the http server.
+This will start the http server on the host on port mentioned in the `.app.yaml` config file.
 
 ## How to run tests
 - Run the following command from the root directory
 ```shell
 go test -v -cover ./...
 ```
+This will execute all the tests and also prints the code coverage percentage.
 
 ## API Endpoints
 ### `POST /api/v1/decks`
