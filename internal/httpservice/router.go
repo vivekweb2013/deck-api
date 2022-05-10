@@ -19,10 +19,13 @@ func Run(c config.Config) error {
 
 	createDeckService := deck.NewCreateDeckService()
 	createDeckHandler := NewCreateDeckHandler(createDeckService)
+	drawCardsService := deck.NewDrawCardsService()
+	drawCardsHandler := NewDrawCardsHandler(drawCardsService)
 
 	router := gin.Default()
 	v1 := router.Group("api/v1")
 	v1.POST("/decks", createDeckHandler.CreateDeck)
+	v1.POST("/decks/:id/draw", drawCardsHandler.DrawCards)
 
 	address := net.JoinHostPort(c.HTTP.Host, c.HTTP.Port)
 	server := http.Server{
