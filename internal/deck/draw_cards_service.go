@@ -30,7 +30,10 @@ func (s *drawCardsService) DrawCards(deckID string, count int) (Cards, error) {
 		return nil, apperror.NewAppError(apperror.ErrorCodeInvalidRequest, "can not draw cards. not enough cards present inside deck")
 	}
 
+	// synchronize updates to draw count
+	d.Lock()
 	d.DrawCount += count
+	d.Unlock()
 
 	return d.Cards[d.DrawCount-count : d.DrawCount], nil
 }

@@ -2,6 +2,7 @@ package deck
 
 import (
 	"math/rand"
+	"sync"
 	"time"
 
 	"golang.org/x/exp/slices"
@@ -21,6 +22,7 @@ type Deck struct {
 	Shuffled  bool
 	Cards     Cards
 	DrawCount int
+	sync.Mutex
 }
 
 var decks = make(map[string]*Deck)
