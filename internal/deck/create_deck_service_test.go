@@ -63,6 +63,6 @@ func TestCreateDeck(t *testing.T) {
 
 		_, err := service.CreateDeck(shuffle, cards)
 
-		assert.EqualError(t, err, "validation failed. invalid cards provided")
+		assert.EqualError(t, err, "error code: validation_failed, message: validation failed. invalid cards provided")
 	})
 }

@@ -1,9 +1,8 @@
 package deck
 
 import (
-	"errors"
-
 	"github.com/google/uuid"
+	"github.com/vivekweb2013/deck-api/internal/apperror"
 )
 
 // CreateDeckService represents a service for creating new deck.
@@ -24,7 +23,7 @@ func NewCreateDeckService() CreateDeckService {
 // It returns the newly created deck or any error occurred during deck creation.
 func (s *createDeckService) CreateDeck(shuffle bool, cards Cards) (*Deck, error) {
 	if !cards.validate() {
-		return nil, errors.New("validation failed. invalid cards provided")
+		return nil, apperror.NewAppError(apperror.ErrorCodeValidationFailed, "validation failed. invalid cards provided")
 	}
 
 	deckID := uuid.NewString()
