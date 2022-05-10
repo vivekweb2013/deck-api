@@ -31,7 +31,7 @@ func (s *createDeckService) CreateDeck(shuffle bool, cards Cards) (*Deck, error)
 	deck := Deck{
 		ID:       deckID,
 		Shuffled: shuffle,
-		Cards:    getCards(shuffle, cards),
+		Cards:    makeCards(shuffle, cards),
 	}
 
 	decks[deckID] = &deck
@@ -39,7 +39,7 @@ func (s *createDeckService) CreateDeck(shuffle bool, cards Cards) (*Deck, error)
 	return &deck, nil
 }
 
-func getCards(shuffle bool, cards Cards) Cards {
+func makeCards(shuffle bool, cards Cards) Cards {
 	if len(cards) == 0 {
 		cards = fullDeckCards[:]
 	}

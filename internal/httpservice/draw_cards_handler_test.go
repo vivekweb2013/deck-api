@@ -16,7 +16,7 @@ func TestDrawCards(t *testing.T) {
 	t.Run("should return drawn cards when request has deck-id and count params", func(t *testing.T) {
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
-		router := getRouter()
+		router := router()
 		mockService := deck.NewMockDrawCardsService(ctrl)
 		count := 2
 		cards := fullCards[:2]
@@ -35,7 +35,7 @@ func TestDrawCards(t *testing.T) {
 	t.Run("should return error response when card draw operation fails", func(t *testing.T) {
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
-		router := getRouter()
+		router := router()
 		mockService := deck.NewMockDrawCardsService(ctrl)
 		mockService.EXPECT().DrawCards(gomock.Any(), gomock.Any()).Return(nil, errors.New("some error"))
 		handler := NewDrawCardsHandler(mockService)
@@ -52,7 +52,7 @@ func TestDrawCards(t *testing.T) {
 	t.Run("should return validation error response when request does not have deck id param", func(t *testing.T) {
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
-		router := getRouter()
+		router := router()
 		mockService := deck.NewMockDrawCardsService(ctrl)
 		handler := NewDrawCardsHandler(mockService)
 
@@ -68,7 +68,7 @@ func TestDrawCards(t *testing.T) {
 	t.Run("should return validation error response when request does not have count param", func(t *testing.T) {
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
-		router := getRouter()
+		router := router()
 		mockService := deck.NewMockDrawCardsService(ctrl)
 		handler := NewDrawCardsHandler(mockService)
 

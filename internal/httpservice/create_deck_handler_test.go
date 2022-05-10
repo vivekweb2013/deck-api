@@ -25,11 +25,11 @@ func TestCreateDeck(t *testing.T) {
 	t.Run("should return a new full-deck when shuffle and cards params missing", func(t *testing.T) {
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
-		router := getRouter()
+		router := router()
 		mockService := deck.NewMockCreateDeckService(ctrl)
 		shuffle := false
 		cards := deck.Cards{}
-		mockService.EXPECT().CreateDeck(shuffle, cards).Return(getDeck(shuffle, fullCards[:]), nil)
+		mockService.EXPECT().CreateDeck(shuffle, cards).Return(validDeck(shuffle, fullCards[:]), nil)
 		handler := NewCreateDeckHandler(mockService)
 
 		router.POST("/api/v1/decks", handler.CreateDeck)
@@ -44,11 +44,11 @@ func TestCreateDeck(t *testing.T) {
 	t.Run("should return a new shuffled full-deck when shuffle param is passed", func(t *testing.T) {
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
-		router := getRouter()
+		router := router()
 		mockService := deck.NewMockCreateDeckService(ctrl)
 		shuffle := true
 		cards := deck.Cards{}
-		mockService.EXPECT().CreateDeck(shuffle, cards).Return(getDeck(shuffle, fullCards[:]), nil)
+		mockService.EXPECT().CreateDeck(shuffle, cards).Return(validDeck(shuffle, fullCards[:]), nil)
 		handler := NewCreateDeckHandler(mockService)
 
 		router.POST("/api/v1/decks", handler.CreateDeck)
@@ -63,11 +63,11 @@ func TestCreateDeck(t *testing.T) {
 	t.Run("should return a new partial deck when cards param is passed", func(t *testing.T) {
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
-		router := getRouter()
+		router := router()
 		mockService := deck.NewMockCreateDeckService(ctrl)
 		shuffle := false
 		cards := deck.Cards{"5H", "JS"}
-		mockService.EXPECT().CreateDeck(shuffle, cards).Return(getDeck(shuffle, cards), nil)
+		mockService.EXPECT().CreateDeck(shuffle, cards).Return(validDeck(shuffle, cards), nil)
 		handler := NewCreateDeckHandler(mockService)
 
 		router.POST("/api/v1/decks", handler.CreateDeck)
@@ -82,11 +82,11 @@ func TestCreateDeck(t *testing.T) {
 	t.Run("should return a new partial & shuffled deck when shuffle & cards param is passed", func(t *testing.T) {
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
-		router := getRouter()
+		router := router()
 		mockService := deck.NewMockCreateDeckService(ctrl)
 		shuffle := true
 		cards := deck.Cards{"2H", "9D"}
-		mockService.EXPECT().CreateDeck(shuffle, cards).Return(getDeck(shuffle, cards), nil)
+		mockService.EXPECT().CreateDeck(shuffle, cards).Return(validDeck(shuffle, cards), nil)
 		handler := NewCreateDeckHandler(mockService)
 
 		router.POST("/api/v1/decks", handler.CreateDeck)
@@ -101,7 +101,7 @@ func TestCreateDeck(t *testing.T) {
 	t.Run("should return error response when creating new deck fails", func(t *testing.T) {
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
-		router := getRouter()
+		router := router()
 		mockService := deck.NewMockCreateDeckService(ctrl)
 		mockService.EXPECT().CreateDeck(gomock.Any(), gomock.Any()).Return(nil, errors.New("some error"))
 		handler := NewCreateDeckHandler(mockService)
@@ -116,14 +116,14 @@ func TestCreateDeck(t *testing.T) {
 	})
 }
 
-func getRouter() *gin.Engine {
+func router() *gin.Engine {
 	gin.SetMode(gin.TestMode)
 	router := gin.Default()
 	router.UseRawPath = true
 	return router
 }
 
-func getDeck(shuffle bool, cards deck.Cards) *deck.Deck {
+func validDeck(shuffle bool, cards deck.Cards) *deck.Deck {
 	deck := &deck.Deck{
 		ID:       deckID,
 		Shuffled: shuffle,

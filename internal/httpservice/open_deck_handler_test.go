@@ -16,9 +16,9 @@ func TestOpenDeck(t *testing.T) {
 	t.Run("should return a deck when request has valid deck id", func(t *testing.T) {
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
-		router := getRouter()
+		router := router()
 		mockService := deck.NewMockOpenDeckService(ctrl)
-		mockService.EXPECT().OpenDeck(deckID).Return(getDeck(false, fullCards[:2]), nil)
+		mockService.EXPECT().OpenDeck(deckID).Return(validDeck(false, fullCards[:2]), nil)
 		handler := NewOpenDeckHandler(mockService)
 
 		router.GET("/api/v1/decks/:id", handler.OpenDeck)
@@ -33,7 +33,7 @@ func TestOpenDeck(t *testing.T) {
 	t.Run("should return error response when retrieving deck fails", func(t *testing.T) {
 		ctrl := gomock.NewController(t)
 		defer ctrl.Finish()
-		router := getRouter()
+		router := router()
 		mockService := deck.NewMockOpenDeckService(ctrl)
 		mockService.EXPECT().OpenDeck(deckID).Return(nil, errors.New("some error"))
 		handler := NewOpenDeckHandler(mockService)
