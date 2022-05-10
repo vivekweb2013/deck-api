@@ -9,3 +9,16 @@ This is a simple golang application that exposes deck APIs useful for playing ca
 cp app.yaml .app.yaml
 ```
 You can edit the config values inside `.app.yaml` file. The application uses this file for retrieving configuration values.
+
+- Start the server directly using below command
+```shell
+go run main.go
+```
+
+Or, If you want to build & run executable then below run commands
+```shell
+go build
+./deck-api
+```
+
+This will start the http server.

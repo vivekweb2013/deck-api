@@ -1,19 +1,18 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/iamolegga/enviper"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"github.com/vivekweb2013/deck-api/internal/config"
+	"github.com/vivekweb2013/deck-api/internal/httpservice"
 )
 
 var conf config.Config
 
 func main() {
 	initConfig()
-	fmt.Printf("%+v", conf)
+	httpservice.Run(conf)
 }
 
 func initConfig() {
